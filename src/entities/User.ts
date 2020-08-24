@@ -40,7 +40,7 @@ export class User {
     product : Product;
 
 }
-
+export default User;
 
 //async setPassword(newPassword: string) {
   //  this.password = await bcrypt.hash(newPassword, 10);
