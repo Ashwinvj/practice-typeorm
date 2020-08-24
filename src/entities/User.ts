@@ -1,48 +1,50 @@
-import bcrypt from 'bcryptjs';
-import { BeforeInsert, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, Unique, UpdateDateColumn, OneToOne } from 'typeorm';
-import Address from './address';
+import {Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToMany} from "typeorm";
+import { Address } from "./Address";
+import { Product } from "./product";
 
 @Entity()
-@Unique(['email'])
 export class User {
-  static findOne(arg0: { where: { userId: any; }; relations: string[]; }) {
-    throw new Error("Method not implemented.");
-  }
-  static create(userData: User) {
-    throw new Error("Method not implemented.");
-  }
+    [x: string]: any;
+    static findOne(arg0: { where: { userId: any; }; relations: string[]; }) {
+        throw new Error("Method not implemented.");
+    }
+    static create(userData: User) {
+        throw new Error("Method not implemented.");
+      }
 
-  @PrimaryGeneratedColumn('uuid')
-  id: number;
+    @PrimaryGeneratedColumn('uuid')
+    id: number;
 
-  @Column()
-  firstName: string;
+    @Column()
+    firstName: string;
 
-  @Column()
-  lastName: string;
+    @Column()
+    lastName: string;
 
-  @Column()
-  email: string;
+    @Column()
+    age: number;
 
-  @Column()
-  password: string;
+    @Column()
+    email: string;
 
-  @OneToOne(() => Address, (address: Address) => address.user)
-  address: Address[];
+    @Column()
+    password: string;
 
-  @CreateDateColumn()
-  createdDate: Date;
+    @Column()
+    phoneNumber: number;
 
-  @UpdateDateColumn()
-  updatedDate: Date;
+    @OneToMany(() => Address, (address: Address) => address.user)
+    address: Address[];
 
-  async setPassword(newPassword: string) {
-    this.password = await bcrypt.hash(newPassword, 10);
-  }
-
-  @BeforeInsert()
-  async encryptPassword() {
-    this.password = await bcrypt.hash(this.password, 10);
-  }
+    @ManyToMany(() => Product, (product : Product) => product.user)
+    product : Product;
 
 }
+
+
+//async setPassword(newPassword: string) {
+  //  this.password = await bcrypt.hash(newPassword, 10);
+
+
+  
+

@@ -1,4 +1,4 @@
-import { Router, NextFunction, Response } from "express";
+/*import { Router, NextFunction, Response } from "express";
 import { body, validationResult } from "express-validator/check";
 
 import {userAddress, UserService} from "../services/users.service"
@@ -10,7 +10,7 @@ const addressRouter: Router = Router();
 addressRouter.route('/')
   .post(
       [
-          body('street').isLength({ min : 10}),
+          body('streetvv').isLength({ min : 10}),
           body('street').isLength({ min : 10})
       ],
       async (req: any, res: any, next: any)  => {

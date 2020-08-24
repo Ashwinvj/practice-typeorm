@@ -15,6 +15,7 @@ const { errors } = config;
 loginRouter.route('/')
   .post(
     [
+      
       body('email').isEmail(),
       body('password').isLength({ min: 1 }),
     ],

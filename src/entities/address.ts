@@ -1,5 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, OneToOne, ManyToOne } from "typeorm";
 import { User } from "./User";
+import { Seller } from "./seller";
 
 @Entity()
 export class Address {
@@ -19,8 +20,18 @@ export class Address {
   @Column()
   door: string;
 
-  @OneToOne(() => User, (user: User) => user.address,{
+  @Column()
+  city : string;
+
+  @Column()
+  pinCode : number;
+
+  @ManyToOne(() => User, (user: User) => user.address,{
   onDelete: "CASCADE"})
-  user: User
+  user: User;
+
+  @ManyToOne(() => Seller, (seller: Seller) => seller.address,{
+  onDelete: "CASCADE"})
+  seller: Seller;
 }
 export default Address;

@@ -1,4 +1,4 @@
-import { getManager, Repository } from 'typeorm';
+import { getManager, Repository, Any } from 'typeorm';
 import { User } from '../entities/User';
 import { Logger, ILogger } from '../utils/logger';
 import { Address } from  '../entities/address' ;
@@ -16,7 +16,7 @@ export class UserService {
   /**
    * Creates an instance of User.
    */
-  instantiate(data: Object): User | undefined {
+  instantiate(data: User): User | undefined {
     return this.userRepository.create(data);
   }
 
