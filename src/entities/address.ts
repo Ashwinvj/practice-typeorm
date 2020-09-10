@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 import { Entity, PrimaryGeneratedColumn, Column, OneToOne, ManyToMany, ManyToOne } from "typeorm";
+=======
+import { Entity, PrimaryGeneratedColumn, Column, OneToOne, ManyToOne } from "typeorm";
+>>>>>>> 274f3bf3821de637508242cd8b20f31b1a2f2f1d
 import { User } from "./User";
+import { Seller } from "./seller";
 
 @Entity()
 export class Address {
@@ -35,6 +40,7 @@ export class Address {
   latitude : number;
 
   @Column()
+<<<<<<< HEAD
   longtitude : number;
 
   
@@ -46,5 +52,19 @@ export class Address {
   //@ManyToMany(() => Seller, (seller: Seller) => seller.address,{
    // onDelete: "CASCADE"})
   //  seller: Seller;
+=======
+  city : string;
+
+  @Column()
+  pinCode : number;
+
+  @ManyToOne(() => User, (user: User) => user.address,{
+  onDelete: "CASCADE"})
+  user: User;
+
+  @ManyToOne(() => Seller, (seller: Seller) => seller.address,{
+  onDelete: "CASCADE"})
+  seller: Seller;
+>>>>>>> 274f3bf3821de637508242cd8b20f31b1a2f2f1d
 }
 export default Address;
