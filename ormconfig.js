@@ -10,7 +10,7 @@ module.exports =
     "port": "3300",
     "username": "root1",
     "password": "9944417861",
-    "database": "typeormdb",
+    "database": "productdb",
     "synchronize": true,
     "logging": false,
     "dropSchema": process.env.NODE_ENV === "test" ? true : false,

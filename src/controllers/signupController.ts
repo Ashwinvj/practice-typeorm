@@ -15,10 +15,13 @@ signupRouter.route('/')
 
   .post(
     [
-      body('firstName').isLength({ min: 1 }),
-      body('lastName').isLength({ min: 1 }),
+       body('firstName').isLength({ min: 1 }),
+       body('lastName').isLength({ min: 1 }),
+      body('age').isLength({ min: 1 }),
       body('email').isEmail(),
       body('password').isLength({ min: 6 }),
+       body('address').optional().isLength({ min: 6 })
+      
     ],
     async (req: Request, res: Response, next: NextFunction) => {
 
@@ -34,6 +37,7 @@ signupRouter.route('/')
             data: response
           });
         } catch (err) { // DB exception or some other exception while inserting user
+          console.log(err)
           const error: ApiResponseError = {
             code: HttpStatus.BAD_REQUEST,
             errorObj: err

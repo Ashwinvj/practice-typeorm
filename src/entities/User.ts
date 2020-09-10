@@ -1,6 +1,7 @@
 import bcrypt from 'bcryptjs';
-import { BeforeInsert, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, Unique, UpdateDateColumn, OneToOne } from 'typeorm';
+import { BeforeInsert, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, Unique, UpdateDateColumn, OneToOne, OneToMany, ManyToMany } from 'typeorm';
 import Address from './address';
+import { Order } from './order';
 
 @Entity()
 @Unique(['email'])
@@ -25,24 +26,25 @@ export class User {
   email: string;
 
   @Column()
+  mobile: string;
+
+  @Column()
   password: string;
 
-  @OneToOne(() => Address, (address: Address) => address.user)
+  @OneToMany(() => Address, (address: Address) => address.user)
   address: Address[];
 
-  @CreateDateColumn()
-  createdDate: Date;
+  @ManyToMany(() => Order, (order : Order) => order.user)
+  order : Order;
 
   @UpdateDateColumn()
   updatedDate: Date;
 
-  async setPassword(newPassword: string) {
-    this.password = await bcrypt.hash(newPassword, 10);
-  }
-
   @BeforeInsert()
-  async encryptPassword() {
-    this.password = await bcrypt.hash(this.password, 10);
+  async setPassword() {
+    // console.log("password",newPassword,this.password)
+   this.password = await bcrypt.hash(this.password,10);
   }
 
+  
 }

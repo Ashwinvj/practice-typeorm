@@ -70,8 +70,9 @@ usersRouter.route('/profile')
       body('firstName').optional().isLength({ min: 1 }),
       body('lastName').optional().isLength({ min: 1 }),
       body('email').optional().isEmail(),
-      body('oldPassword').optional().isLength({ min: 6 }),
-      body('newPassword').optional().isLength({ min: 6 }),
+      body('oldPassword').isLength({ min: 6 }),
+      body('newPassword').isLength({ min: 6 }),
+      body('address').optional().isLength({ min: 6 })
     ],
     async (req: Request, res: Response, next: NextFunction) => {
       const validationErrors = validationResult(req);
@@ -114,7 +115,8 @@ usersRouter.route('/profile')
           if (req.body.firstName) user.firstName = req.body.firstName;
           if (req.body.lastName) user.lastName = req.body.lastName;
           if (req.body.email) user.email = req.body.email;
-          if (req.body.newPassword) await user.setPassword(req.body.newPassword);
+          if (req.body.address) user.address = req.body.address;
+          if (req.body.newPassword)  user.password = req.body.newPassword;
 
           const updatedUser = await userService.update(user);
           res.status(HttpStatus.OK).json({
